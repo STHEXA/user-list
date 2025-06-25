@@ -1,5 +1,4 @@
 import UserList from "@/components/UserList";
-import UserListBtn from "@/components/UserListBtn";
 
 export default function Home() {
   return (
@@ -8,10 +7,6 @@ export default function Home() {
         ユーザー一覧取得
       </h2>
       <UserList />
-      <h2 className="font-medium text-gray-600 text-6xl m-3">
-        ユーザー一覧取得ボタンで
-      </h2>
-      <UserListBtn />
     </div>
   );
 }

@@ -35,6 +35,7 @@ export default function UserListPost() {
       //入力フォームの値をリセットする
       setTitle("");
       setContent("");
+      setError("");
     } catch (e) {
       if (e instanceof Error) {
         setError(e.message);
@@ -84,10 +85,10 @@ export default function UserListPost() {
       <div>
         <h3>投稿リスト</h3>
         {postList && (
-          <ul>
+          <ul className="flex flex-col gap-3">
             {postList.map((post) => (
-              <li key={post.id}>
-                <p>id: {post.id}</p>
+              <li key={post.userId}>
+                <p>userId: {post.userId}</p>
                 <p>タイトル：{post.title}</p>
                 <p>内容：{post.body}</p>
               </li>

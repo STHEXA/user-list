@@ -43,6 +43,22 @@ export default function UserListDelete() {
     }
   };
 
+  const deletePost = async (id: number) => {
+    if (window.confirm("投稿を削除します")) {
+      try {
+        const res = await axios.delete(
+          `https://jsonplaceholder.typicode.com/posts/${id}`,
+        );
+        console.log(res);
+        setPostList((prev) => prev.filter((post) => post.userId !== id));
+      } catch (e) {
+        if (e instanceof Error) {
+          setError(e.message);
+        }
+      }
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center">
       <h3 className="mb-6 text-2xl">なんか投稿しよう</h3>
@@ -87,11 +103,16 @@ export default function UserListDelete() {
         {postList && (
           <ul className="flex flex-col gap-3">
             {postList.map((post) => (
-              <li key={post.userId}>
-                <p>userId: {post.userId}</p>
-                <p>タイトル：{post.title}</p>
-                <p>内容：{post.body}</p>
-                <button className="border-2 border-solid border-zinc-400">
+              <li key={post.id} className="flex items-start gap-x-5">
+                <div>
+                  <p>userId: {post.userId}</p>
+                  <p>タイトル：{post.title}</p>
+                  <p>内容：{post.body}</p>
+                </div>
+                <button
+                  className="rounded-2xl border-2 border-solid border-zinc-400 px-4 py-2 hover:bg-red-400"
+                  onClick={() => deletePost(post.userId)}
+                >
                   ✕
                 </button>
               </li>

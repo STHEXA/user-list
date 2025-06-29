@@ -57,7 +57,7 @@ export default function UserList() {
 
   return (
     <div>
-      <p className="text-4xl mt-4 mb-4">APIで取得したユーザー一覧です。</p>
+      <p className="mt-4 mb-4 text-4xl">APIで取得したユーザー一覧です。</p>
       {loading ? (
         <p>読み込み中...</p>
       ) : (

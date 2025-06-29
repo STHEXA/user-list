@@ -9,7 +9,7 @@ type Post = {
   userId: number;
 };
 
-export default function UserListPost() {
+export default function UserListDelete() {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [userId, setUserId] = useState<number>(1);
@@ -91,6 +91,9 @@ export default function UserListPost() {
                 <p>userId: {post.userId}</p>
                 <p>タイトル：{post.title}</p>
                 <p>内容：{post.body}</p>
+                <button className="border-2 border-solid border-zinc-400">
+                  ✕
+                </button>
               </li>
             ))}
           </ul>

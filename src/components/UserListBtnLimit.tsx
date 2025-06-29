@@ -57,22 +57,22 @@ export default function UserList() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col items-center justify-center">
       <p>何件取得する？</p>
       <input
         type="number"
         value={inputLimit}
         onChange={(e) => setInputLimit(e.target.valueAsNumber)}
-        className="border-2 rounded-md m-4"
+        className="m-4 rounded-md border-2"
       />
-      <button onClick={getFetchData} className="p-2.5 bg-gray-400 rounded-md">
+      <button onClick={getFetchData} className="rounded-md bg-gray-400 p-2.5">
         {inputLimit}件のユーザーを取得する
       </button>
       {loading && <p>読込中・・・</p>}
       {error && <p>{error}</p>}
       {userList && (
         <>
-          <p className="text-4xl mt-4 mb-4">APIで取得したユーザー一覧です。</p>
+          <p className="mt-4 mb-4 text-4xl">APIで取得したユーザー一覧です。</p>
           <ul>
             {userList &&
               userList.slice(0, inputLimit).map((user) => (

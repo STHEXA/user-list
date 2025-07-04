@@ -184,7 +184,7 @@ export default function UserListPatch() {
                   >
                     ✕
                   </button>
-                  {isEdit ? (
+                  {isEdit === post.userId ? (
                     <button
                       onClick={() => updataPost(post.userId)}
                       className="rounded-2xl border-2 border-solid border-zinc-400 px-4 py-2 hover:bg-blue-400"

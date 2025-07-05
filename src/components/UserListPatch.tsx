@@ -1,13 +1,7 @@
 "use client";
 import axios from "axios";
 import { FormEvent, useState } from "react";
-
-type Post = {
-  id: number;
-  title: string;
-  body: string;
-  userId: number;
-};
+import type { Post } from "../types/post";
 
 export default function UserListPatch() {
   const [title, setTitle] = useState<string>("");

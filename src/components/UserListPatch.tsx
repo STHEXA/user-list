@@ -1,7 +1,7 @@
 "use client";
-import axios from "axios";
 import { FormEvent, useState } from "react";
 import type { Post } from "../types/post";
+import { postContent, postDelete, postUpdate } from "@/api/postApi";
 
 export default function UserListPatch() {
   const [title, setTitle] = useState<string>("");
@@ -26,15 +26,8 @@ export default function UserListPatch() {
       if (!title.trim() || !content.trim()) {
         return setError("タイトルと内容は必須です");
       }
-      const res = await axios.post<Post>(
-        "https://jsonplaceholder.typicode.com/posts",
-        {
-          title: title,
-          body: content,
-          userId: userId,
-        },
-      );
-      setPostList([res.data, ...postList]);
+      const postData = await postContent(title, content, userId);
+      setPostList([postData, ...postList]);
       setUserId((prev) => prev + 1);
       //入力フォームの値をリセットする
       setTitle("");
@@ -50,10 +43,8 @@ export default function UserListPatch() {
   const deletePost = async (id: number) => {
     if (window.confirm("投稿を削除します")) {
       try {
-        const res = await axios.delete(
-          `https://jsonplaceholder.typicode.com/posts/${id}`,
-        );
-        console.log(res);
+        const deleteData = await postDelete(id);
+        console.log(deleteData);
         setPostList((prev) => prev.filter((post) => post.userId !== id));
       } catch (e) {
         if (e instanceof Error) {
@@ -69,18 +60,12 @@ export default function UserListPatch() {
     setChangeContent(body);
   };
 
-  const updataPost = async (userId: number) => {
+  const updatePost = async (userId: number) => {
     console.log("userId");
     console.log(userId);
     try {
-      const res = await axios.patch(
-        `https://jsonplaceholder.typicode.com/posts/${userId}`,
-        {
-          title: changeTitle,
-          body: changeContent,
-        },
-      );
-      console.log(res.data);
+      const updateDate = await postUpdate(userId, changeTitle, changeContent);
+      console.log(updateDate);
       setPostList((prev) => {
         const newList = prev.map((item) =>
           item.userId === userId
@@ -180,7 +165,7 @@ export default function UserListPatch() {
                   </button>
                   {isEdit === post.userId ? (
                     <button
-                      onClick={() => updataPost(post.userId)}
+                      onClick={() => updatePost(post.userId)}
                       className="rounded-2xl border-2 border-solid border-zinc-400 px-4 py-2 hover:bg-blue-400"
                     >
                       更新する
